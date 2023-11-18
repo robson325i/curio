@@ -1,8 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import EnrollBtn from "./enrollBtn"
-import WithdrawBtn from "./withdrawBtn"
 
 interface menuProps {
   desc: string,
@@ -14,10 +12,9 @@ interface cardProps {
   title: string,
   description: string,
   teacher: string,
-  isEnrolle: boolean,
   dateStart: string,
   dateEnd?: string,
-  courseId: number
+  button: JSX.Element
 }
 
 const ExpandedMenu = ({desc, dateStart, dateEnd}: menuProps) => {
@@ -32,7 +29,7 @@ const ExpandedMenu = ({desc, dateStart, dateEnd}: menuProps) => {
   )
 }
 
-const CourseCard = ({title, description, teacher, isEnrolle, dateStart, dateEnd, courseId}: cardProps) => {
+const CourseCard = ({title, description, teacher, dateStart, dateEnd, button}: cardProps) => {
   const [expanded, setExpanded] = useState(false)
   return (
     <div
@@ -43,7 +40,7 @@ const CourseCard = ({title, description, teacher, isEnrolle, dateStart, dateEnd,
           <span className="font-semibold">{title}</span>
           <span className="text-sm">{teacher}</span>
         </div>
-        {isEnrolle? <WithdrawBtn courseId={courseId} /> : <EnrollBtn courseId={courseId} />}
+        {button}
       </div>
       
       <button className="mx-auto text-sm text-center w-full underline font-light"

@@ -1,4 +1,4 @@
-import CourseCard from "./courseCard"
+import EnrollCourseCard from "./enrollCourseCard"
 
 const AvailableCourses = () => {
   return (
@@ -6,20 +6,20 @@ const AvailableCourses = () => {
       <h3 className="font-semibold text-lg">Cursos disponíveis</h3>
       <hr className="my-2 mb-4" />
       <div className="flex flex-col items-center gap-3">
-        <CourseCard title="Programação com arduino"
+        <EnrollCourseCard title="Programação com arduino"
           description="Olá mundo" teacher="Selma Gomes"
-          isEnrolle={false} dateStart={"30/10/2023"}
+          dateStart={"30/10/2023"}
           courseId={4} />
 
-        <CourseCard title="Programação com arduino"
+        <EnrollCourseCard title="Programação com arduino"
           description="Olá mundo" teacher="Selma Gomes"
-          isEnrolle={false} dateStart={"30/10/2023"}
+          dateStart={"30/10/2023"}
           dateEnd={"30/10/2023"}
           courseId={5} />
 
-        <CourseCard title="Programação com arduino"
+        <EnrollCourseCard title="Programação com arduino"
           description="Olá mundo" teacher="Selma Gomes"
-          isEnrolle={false} dateStart={"30/10/2023"}
+          dateStart={"30/10/2023"}
           dateEnd={"30/10/2023"}
           courseId={6} />
       </div>

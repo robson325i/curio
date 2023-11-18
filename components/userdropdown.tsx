@@ -7,7 +7,7 @@ const UserDropdown = () => {
     <div className="float-right mr-4">
       <button
         className="rounded bg-blue-500 hover:bg-blue-700 text-zinc-50 font-semibold py-2 px-4"
-        onClick={signOut}
+        onClick={() => signOut()}
         >Sair</button>
     </div>
   )

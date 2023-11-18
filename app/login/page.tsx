@@ -15,7 +15,7 @@ const Login = () => {
         <hr className="w-full my-3" />
         <h3 className="font-semibold text-zinc-400 ml-1 mt-1">Faça login com sua conta institucional</h3>
 
-        <button  onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+        <button  onClick={() => signIn("google", { callbackUrl: "/" })}
         className="rounded w-full flex justify-center align-middle border shadow py-3 font-semibold
         bg-zinc-100 hover:bg-zinc-200 mt-4">
           <Image src="/google.svg" alt="Logo Google" width={24} height={24} className="mx-2" />
