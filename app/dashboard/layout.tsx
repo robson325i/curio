@@ -1,18 +1,15 @@
-"use client"
-import { getServerSession  } from "next-auth"
-import { SessionProvider } from "next-auth/react"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { Navbar } from "@/components/navbar"
 import { redirect } from "next/navigation"
+import { auth } from "@/lib/auth"
 
 const DashboardLayout = async ({ children }: { children: JSX.Element }) => {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   if (session) {
     return (
-      <SessionProvider session={session}>
-        <Navbar />
+      <>
+        <Navbar session={session} />
         {children}
-      </SessionProvider>
+      </>
     )
   } else {
     redirect('/login')

@@ -1,5 +1,6 @@
 import AvailableCourses from "@/components/availableCourses"
 import EnrolledCourses from "@/components/enrolledCourses"
+export const dynamic = 'force-dynamic'
 
 const Dashboard = () => {
   return (

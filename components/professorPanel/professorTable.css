@@ -1,0 +1,20 @@
+table tr:nth-child(even) {
+    @apply bg-zinc-200 border border-zinc-400;
+}
+th {
+    @apply border border-zinc-400 bg-zinc-400 text-zinc-50 font-semibold;
+}
+th, td {
+    @apply text-center px-1 border-collapse align-middle;
+}
+td {
+    @apply border border-zinc-300 px-2;
+}
+tbody, tfoot {
+    @apply text-sm;
+}
+table input, input[type=text] {
+    @apply bg-transparent py-4;
+    border: none;
+    border-width: 0px;
+}

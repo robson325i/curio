@@ -1,15 +1,18 @@
 "use client"
-
 import Image from "next/image"
 import UserDropdown from "./userdropdown"
 import { useState } from "react"
-import { useSession } from "next-auth/react"
 import Link from "next/link"
+import { Session } from "next-auth"
+
 
 const LogoName = () => {
   return (
     <Link href={"/"} className="flex items-center gap-4 my-2">
-      <Image src={"/faeterj.png"} width={42} height={42} alt="Logo Faeterj" />
+      <Image 
+        className="w-auto h-auto"
+        src={"/faeterj.png"} width={42} height={42} alt="Logo Faeterj"
+      />
       <span className="font-semibold text-2xl max-sm:hidden">
         Curió
       </span>
@@ -17,10 +20,9 @@ const LogoName = () => {
   )
 }
 
-const Navbar = () => {
+const Navbar = ({session}: {session: Session}) => {
   const [visible, setVisible] = useState(false)
-  const { data: session } = useSession()
-  // console.log(JSON.stringify(session))
+  // console.log(JSON.stringify(session, null, 2))
   if (session?.user) {
     return (
       <nav className="bg-zinc-100">
@@ -37,7 +39,7 @@ const Navbar = () => {
               </span>
             </div>
             <Image src={session.user.image!}
-              className="rounded-full" width={42} height={42}
+              className="rounded-full w-auto h-auto" width={42} height={42}
               alt="Icone perfil" />
           </div>
         </div>
