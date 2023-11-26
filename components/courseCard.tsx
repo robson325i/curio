@@ -21,9 +21,11 @@ const ExpandedMenu = ({desc, dateStart, dateEnd}: menuProps) => {
   return (
     <>
       <hr className="mt-2 mb-3" />
-      <div className="flex justify-between text-sm">
+      <div className="flex justify-between text-sm max-w-sm">
         <span>{desc}</span>
-        {dateEnd? <span> {dateStart.toString()} - {dateEnd.toString()}</span> : <span>{dateStart.toString()}</span>}
+        <span className="min-w-fit">
+        {dateEnd? dateStart.concat(" - ", dateEnd) : dateStart}
+        </span>
       </div>
     </>
   )
