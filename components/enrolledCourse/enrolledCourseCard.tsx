@@ -1,5 +1,5 @@
-import CourseCard from "./courseCard";
-import WithdrawBtn from "./withdrawBtn";
+import CourseCard from "../courseCard";
+import WithdrawBtn from "../withdrawBtn";
 
 interface cardProps {
   title: string,

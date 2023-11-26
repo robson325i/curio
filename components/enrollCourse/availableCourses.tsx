@@ -34,7 +34,7 @@ const AvailableCourses = async () => {
         <div className="flex flex-col items-center gap-3">
           {availableCourses.map((course) => {
             return (
-              <EnrollCourseCard title={course.name}
+              <EnrollCourseCard userId={user.id} title={course.name}
                 description={course.description} teacher={course.professor?.name || ""}
                 dateStart={course.dateStart.toLocaleDateString("pt-br")}
                 dateEnd={course.dateEnd?.toLocaleDateString("pt-br")}

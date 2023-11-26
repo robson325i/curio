@@ -1,5 +1,5 @@
-import AvailableCourses from "@/components/availableCourses"
-import EnrolledCourses from "@/components/enrolledCourses"
+import AvailableCourses from "@/components/enrollCourse/availableCourses"
+import EnrolledCourses from "@/components/enrolledCourse/enrolledCourses"
 export const dynamic = 'force-dynamic'
 
 const Dashboard = () => {

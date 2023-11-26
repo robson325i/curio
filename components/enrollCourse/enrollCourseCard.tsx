@@ -1,7 +1,8 @@
-import CourseCard from "./courseCard";
+import CourseCard from "../courseCard";
 import EnrollBtn from "./enrollBtn";
 
 interface cardProps {
+  userId: string,
   title: string,
   description: string,
   teacher: string,
@@ -10,14 +11,14 @@ interface cardProps {
   courseId: number
 }
 
-const EnrollCourseCard = ({title, description, teacher, dateStart, dateEnd, courseId}: cardProps) => {
+const EnrollCourseCard = ({userId, title, description, teacher, dateStart, dateEnd, courseId}: cardProps) => {
   return (
     <CourseCard title={title}
       description={description}
       teacher={teacher}
       dateStart={dateStart}
       dateEnd={dateEnd}
-      button={<EnrollBtn courseId={courseId} />}
+      button={<EnrollBtn userId={userId} courseId={courseId} />}
     />
   )
 }
