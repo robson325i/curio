@@ -6,34 +6,24 @@ import { revalidatePath } from "next/cache"
 interface courseObject {
     name: string,
     description: string,
-    dateStart: string,
-    dateEnd?: string,
+    dateStart: Date,
+    dateEnd?: Date,
+    location: string,
     open: boolean,
     professorId: string
 }
 
 export default async function NewCourseAction(course: courseObject) {
-    let dateS = new Date(course.dateStart)
-    let dateE: Date | undefined
-
-    if (course.dateEnd) {
-        dateE = new Date(course.dateEnd)
-    }
+    
     const newCourse = await prisma.course.create({
         data: {
             name: course.name,
             description: course.description,
-            dateStart: dateS.toISOString(),
+            dateStart: dateS,
             dateEnd: dateE?.toISOString(),
             open: course.open,
+            location: course.location,
             professorId: course.professorId
-        },
-        select: {
-            id: true,
-            name: true,
-            dateStart: true,
-            dateEnd: true,
-            open: true
         }
     })
     

@@ -2,21 +2,16 @@
 
 import AddCourseTableRow from './addCourseTableRow'
 import RemoveCourseBtn from './removeCourseBtn'
+import IsOpenCheckButton from './isOpenCheckButton'
+import { Prisma } from '@prisma/client'
 
-interface Course {
-    professor: {
-      name: string | null;
-  } | null;
-  id: number;
-  name: string;
-  description: string;
-  dateStart: Date;
-  dateEnd: Date | null;
-  open: boolean;
-  professorId: string | null;
-}
+type Course = Prisma.CourseGetPayload<{
+  include: {professor: {include: {user: {select: {name: true}}}}}
+}>
 
-const ProfessorCourseTable = async ({name, id, courses}: {name: string, id: string, courses: Course[]}) => {
+const ProfessorCourseTable = (
+  {name, id, isAdmin, courses}: {name: string, id: string, isAdmin: boolean, courses: Course[]}
+  ) => {
   return (
     <table>
       <thead>
@@ -27,6 +22,7 @@ const ProfessorCourseTable = async ({name, id, courses}: {name: string, id: stri
           <th>data-fim</th>
           <th>professor</th>
           <th>disponível</th>
+          <th>local</th>
           <th></th>
         </tr>
       </thead>
@@ -36,17 +32,18 @@ const ProfessorCourseTable = async ({name, id, courses}: {name: string, id: stri
             <tr key={course.id}>
               <td>{course.name}</td>
               <td>{course.description}</td>
-              <td>{course.dateStart.toLocaleDateString('pt-br')}</td>
-              <td>{course.dateEnd?.toLocaleDateString('pt-br') || "---"}</td>
-              <td>{course.professor?.name || "---"}</td>
-              <td>{course.open? "aberto" : "fechado"}</td>
+              <td>{course.dateStart.toLocaleDateString('pt-br') + " " + course.dateStart.toLocaleTimeString("pt-br")}</td>
+              <td>{course.dateEnd?.toLocaleDateString('pt-br') + " " + course.dateStart.toLocaleTimeString("pt-br") || "---"}</td>
+              <td>{course.professor?.user.name || "---"}</td>
+              <td><IsOpenCheckButton courseId={course.id} isOpen={course.open} /></td>
+              <td>{course.location || "---"}</td>
               <td><RemoveCourseBtn courseId={course.id} /></td>
             </tr>
           )
         })}
       </tbody>
       <tfoot>
-        <AddCourseTableRow professor={name} professorId={id} />
+        <AddCourseTableRow professor={name} professorId={id} isAdmin={isAdmin} />
       </tfoot>
     </table>
   )

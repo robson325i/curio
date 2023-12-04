@@ -5,13 +5,13 @@ import EnrollCourseCard from "./enrollCourseCard"
 const AvailableCourses = async () => {
   const session = await auth()
   const user = await prisma.user.findFirst({
-    include: { enrolledCourses: {select: { id: true}}},
+    include: { student: { include: { enrolledCourses: true }}},
     where: { email: { equals: session?.user?.email! }}
   })
   
-  if (user) {
+  if (user?.student) {
     let ids: number[] = []
-    user.enrolledCourses.map((course) => {
+    user.student.enrolledCourses.map((course) => {
       ids.push(course.id)
     })
 
@@ -22,7 +22,7 @@ const AvailableCourses = async () => {
           { id: { notIn: ids} }
         ]
       },
-      include: { professor: { select: { name: true }}}
+      include: { professor: { include: { user: true }}}
     })
 
     console.log(JSON.stringify(availableCourses, null, 2))
@@ -35,9 +35,10 @@ const AvailableCourses = async () => {
           {availableCourses.map((course) => {
             return (
               <EnrollCourseCard userId={user.id} title={course.name}
-                description={course.description} teacher={course.professor?.name || ""}
-                dateStart={course.dateStart.toLocaleDateString("pt-br")}
-                dateEnd={course.dateEnd?.toLocaleDateString("pt-br")}
+                description={course.description} teacher={course.professor?.user.name || ""}
+                dateStart={course.dateStart}
+                dateEnd={course.dateEnd}
+                location={course.location}
                 courseId={course.id} key={course.id}
               />
             )

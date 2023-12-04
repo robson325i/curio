@@ -2,7 +2,6 @@ import { redirect } from "next/navigation"
 import { getServerSession } from "next-auth"
 import { authOptions } from "./api/auth/[...nextauth]/route"
 import { prisma } from "@/lib/prisma"
-import { Role } from "@prisma/client"
 
 const Home = async () => {
   const session = await getServerSession(authOptions)
@@ -14,30 +13,53 @@ const Home = async () => {
         email: {
           equals: session.user.email
         }
+      },
+      include: {
+        professor: true,
+        student: true
       }
     })
 
     if (!user) {
+      // didn't find a user on database, so let's create one
       // get user role from email
-      let role: Role = session.user.email.includes("aluno")? "STUDENT" : "PROFESSOR"
-      try {
-        user = await prisma.user.create({
-          data: {
-            email: session.user.email,
-            name: session.user.name!,
-            role: role
-          }
-        })
-      } catch (e) {
-        console.error(e)
+      if (session.user.email.includes("aluno")) {
+        try {
+          user = await prisma.user.create({
+            data: {
+              student: {create: {}},
+              professor: null,
+              email: session.user.email,
+              name: session.user.name!,
+              image: session.user.image!
+            }
+          })
+          console.log("usuário aluno criado")
+        } catch (e) {
+          console.error(e)
+        }
+      } else {
+        try {
+          user = await prisma.user.create({
+            data: {
+              professor: {create: {}},
+              email: session.user.email,
+              name: session.user.name!,
+              image: session.user.image!
+            }
+          })
+          console.log("usuário professor criado")
+        } catch (e) {
+          console.error(e)
+        }
       }
-    }
-
-    if (user?.role === "STUDENT") {
-      redirect("/dashboard/aluno")
-    }
-    else if (user?.role === "ADMIN" || user?.role === "PROFESSOR") {
-      redirect("/dashboard/professor")
+    } else {
+      console.log("usuário encontrado na base de dados: ", JSON.stringify(user, null, 2))
+      if (user.professor) {
+        redirect("/dashboard/professor")
+      } else {
+        redirect("/dashboard/aluno")
+      }
     }
     
   } else {

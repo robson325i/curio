@@ -3,11 +3,12 @@
 import { useState } from "react"
 import NewCourseAction from "./newCourseAction"
 
-const AddCourseTableRow = ({professor, professorId}: {professor: string, professorId: string}) => {
+const AddCourseTableRow = ({professor, professorId, isAdmin}: {professor: string, professorId: string, isAdmin: boolean}) => {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [sDate, setSDate] = useState("")
   const [eDate, setEDate] = useState("")
+  const [location, setLocation] = useState("")
   const [isOpen, setOpen] = useState(false)
 
   async function handleClick() {
@@ -16,11 +17,12 @@ const AddCourseTableRow = ({professor, professorId}: {professor: string, profess
       description: description.trim(),
       dateStart: sDate.trim(),
       dateEnd: eDate.trim(),
+      location: location.trim(),
       open: isOpen,
       professorId: professorId
     }
 
-    let valid = !(course.name === "" || course.description === "" || course.dateStart === "")
+    let valid = !(course.name === "" || course.description === "" || course.dateStart === "" || course.location === "")
     if (valid) {
       await NewCourseAction(course)
       alert("Curso criado com sucesso!")
@@ -33,7 +35,7 @@ const AddCourseTableRow = ({professor, professorId}: {professor: string, profess
   return (
     <>
       <tr>
-        <td colSpan={7} className="bg-zinc-400 text-zinc-50 font-semibold">
+        <td colSpan={8} className="bg-zinc-400 text-zinc-50 font-semibold">
           Adicionar novo curso
         </td>
       </tr>
@@ -62,7 +64,7 @@ const AddCourseTableRow = ({professor, professorId}: {professor: string, profess
           <label htmlFor="dateStart" className="hidden">
             data de início do curso a ser criado
           </label>
-          <input type="date" name="dateStart" id="dateStart"
+          <input type="datetime-local" name="dateStart" id="dateStart"
             alt="data de início do curso a ser criado"
             onChange={(e) => setSDate(e.target.value)}
             required
@@ -72,7 +74,7 @@ const AddCourseTableRow = ({professor, professorId}: {professor: string, profess
           <label htmlFor="dateEnd" className="hidden">
             data de fim do curso a ser criado
           </label>
-          <input type="date" name="dateEnd" id="dateEnd"
+          <input type="datetime-local" name="dateEnd" id="dateEnd"
             alt="data de fim do curso a ser criado"
             onChange={(e) => setEDate(e.target.value)}
           />
@@ -85,6 +87,16 @@ const AddCourseTableRow = ({professor, professorId}: {professor: string, profess
           <input className="w-6 h-6"
             type="checkbox" name="open" id="open"
             onChange={(e) => setOpen(e.target.checked)}
+          />
+        </td>
+        <td>
+          <label htmlFor="location" className="hidden">
+            local do curso a ser criado
+          </label>
+          <input type="text" name="location" id="location"
+            alt="local do curso a ser criado"
+            onChange={(e) => setLocation(e.target.value)}
+            required
           />
         </td>
         <td>

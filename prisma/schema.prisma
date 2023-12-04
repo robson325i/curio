@@ -10,27 +10,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  STUDENT
-  PROFESSOR
-  ADMIN
-}
-
 model Course {
-  id          Int       @id @default(autoincrement())
-  name        String    @unique
-  description String
-  dateStart   DateTime
-  dateEnd     DateTime?
-  open        Boolean   @default(false)
-  professor   User?     @relation(fields: [professorId], references: [id], onDelete: SetNull)
-  professorId String?
+  id               Int        @id @default(autoincrement())
+  name             String     @unique
+  description      String
+  dateStart        DateTime
+  dateEnd          DateTime?
+  open             Boolean    @default(false)
+  professor        Professor? @relation(fields: [professorId], references: [id], onDelete: SetNull)
+  professorId      String?
+  location         String?
+  enrolledStudents Student[]
 }
 
 model User {
-  id              String    @id @default(cuid())
-  email           String?   @unique
-  name            String?
+  id        String     @id @default(cuid())
+  email     String?    @unique
+  name      String?
+  image     String     @default("/public/avatar.png")
+  student   Student?
+  professor Professor?
+}
+
+model Student {
+  id              String   @id @default(cuid())
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId          String   @unique
   enrolledCourses Course[]
-  role            Role      @default(STUDENT)
+}
+
+model Professor {
+  id      String   @id @default(cuid())
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId  String   @unique
+  isAdmin Boolean  @default(false)
+  courses Course[]
 }

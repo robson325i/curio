@@ -6,18 +6,20 @@ interface cardProps {
   title: string,
   description: string,
   teacher: string,
-  dateStart: string,
-  dateEnd?: string,
-  courseId: number
+  dateStart: Date,
+  dateEnd: Date | null,
+  courseId: number,
+  location: string | null
 }
 
-const EnrollCourseCard = ({userId, title, description, teacher, dateStart, dateEnd, courseId}: cardProps) => {
+const EnrollCourseCard = ({userId, title, description, teacher, dateStart, dateEnd, courseId, location}: cardProps) => {
   return (
     <CourseCard title={title}
       description={description}
       teacher={teacher}
       dateStart={dateStart}
       dateEnd={dateEnd}
+      location={location}
       button={<EnrollBtn userId={userId} courseId={courseId} />}
     />
   )
