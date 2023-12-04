@@ -15,12 +15,12 @@ const AddCourseTableRow = ({professor, professorId, isAdmin}: {professor: string
     let course = {
       name: name.trim(),
       description: description.trim(),
-      dateStart: sDate.trim(),
-      dateEnd: eDate.trim(),
+      dateStart: new Date(sDate.trim()),
+      dateEnd: new Date(eDate.trim()),
       location: location.trim(),
       open: isOpen,
       professorId: professorId
-    }
+    } 
 
     let valid = !(course.name === "" || course.description === "" || course.dateStart === "" || course.location === "")
     if (valid) {
