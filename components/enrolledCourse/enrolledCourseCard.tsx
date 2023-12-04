@@ -1,23 +1,26 @@
 import CourseCard from "../courseCard";
-import WithdrawBtn from "../withdrawBtn";
+import WithdrawBtn from "./withdrawBtn";
 
 interface cardProps {
   title: string,
   description: string,
   teacher: string,
-  dateStart: string,
-  dateEnd?: string,
-  courseId: number
+  dateStart: Date,
+  dateEnd: Date | null,
+  courseId: number,
+  location: string | null
+  userId: string
 }
 
-const EnrolledCourseCard = ({title, description, teacher, dateStart, dateEnd, courseId}: cardProps) => {
+const EnrolledCourseCard = ({userId, title, description, teacher, dateStart, dateEnd, courseId, location}: cardProps) => {
   return (
     <CourseCard title={title}
       description={description}
       teacher={teacher}
       dateStart={dateStart}
       dateEnd={dateEnd}
-      button={<WithdrawBtn courseId={courseId} />}
+      location={location}
+      button={<WithdrawBtn userId={userId} courseId={courseId} />}
     />
   )
 }

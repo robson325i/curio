@@ -20,12 +20,14 @@ const ProfessorPanel = async ({email}: {email: string}) => {
 
   if (user?.professor?.isAdmin) {
     courses = await prisma.course.findMany({
-      include: {professor: {include: {user: {select:{name: true}}}}}
+      include: {professor: {include: {user: {select:{name: true}}}}},
+      orderBy: {name: "asc"}
     })
   } else {
     courses = await prisma.course.findMany({
       where: {professorId: {equals: user?.professor?.id}},
-      include: {professor: {include: {user: {select:{name: true}}}}}
+      include: {professor: {include: {user: {select:{name: true}}}}},
+      orderBy: {name: "asc"}
     })
   }
   
@@ -43,7 +45,7 @@ const ProfessorPanel = async ({email}: {email: string}) => {
               Carregando...
             </p>
           }>
-            <ProfessorCourseTable name={user.name!} id={user.id} isAdmin={user.professor?.isAdmin!} courses={courses} />
+            <ProfessorCourseTable name={user.name!} id={user.professor?.id!} isAdmin={user.professor?.isAdmin!} courses={courses} />
           </Suspense>
         </div>
       </div>

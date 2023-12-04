@@ -33,7 +33,7 @@ const ProfessorCourseTable = (
               <td>{course.name}</td>
               <td>{course.description}</td>
               <td>{course.dateStart.toLocaleDateString('pt-br') + " " + course.dateStart.toLocaleTimeString("pt-br")}</td>
-              <td>{course.dateEnd?.toLocaleDateString('pt-br') + " " + course.dateStart.toLocaleTimeString("pt-br") || "---"}</td>
+              <td>{course.dateEnd?.toLocaleDateString('pt-br') + " " + course.dateEnd?.toLocaleTimeString("pt-br") || "---"}</td>
               <td>{course.professor?.user.name || "---"}</td>
               <td><IsOpenCheckButton courseId={course.id} isOpen={course.open} /></td>
               <td>{course.location || "---"}</td>

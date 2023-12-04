@@ -3,6 +3,16 @@
 import { useState } from "react"
 import NewCourseAction from "./newCourseAction"
 
+interface Course {
+  name: string,
+  description: string,
+  location: string,
+  dateStart: Date,
+  dateEnd: Date | null,
+  open: boolean,
+  professorId: string
+}
+
 const AddCourseTableRow = ({professor, professorId, isAdmin}: {professor: string, professorId: string, isAdmin: boolean}) => {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
@@ -12,20 +22,25 @@ const AddCourseTableRow = ({professor, professorId, isAdmin}: {professor: string
   const [isOpen, setOpen] = useState(false)
 
   async function handleClick() {
-    let course = {
+    let course: Course = {
       name: name.trim(),
       description: description.trim(),
-      dateStart: new Date(sDate.trim()),
-      dateEnd: new Date(eDate.trim()),
       location: location.trim(),
+      dateStart: new Date(sDate.trim()),
+      dateEnd: null,
       open: isOpen,
       professorId: professorId
-    } 
+    }
 
-    let valid = !(course.name === "" || course.description === "" || course.dateStart === "" || course.location === "")
+    let valid = !(course.name === "" || course.description === "" || sDate.trim() === "" || course.location === "")
     if (valid) {
-      await NewCourseAction(course)
-      alert("Curso criado com sucesso!")
+      if (eDate.trim() !== "") {
+        course.dateEnd = new Date(eDate.trim())
+      }
+      // course.dateStart.setUTCHours(course.dateStart.getUTCHours() - 3)
+      // course.dateEnd?.setUTCHours(course.dateEnd?.getUTCHours() - 3)
+      const newcourse = await NewCourseAction(course)
+      alert("Curso criado com sucesso!\n" + JSON.stringify(newcourse, null, 2))
     }
     else {
       alert("Todos os campos exeto a data-fim são obrigatórios!")

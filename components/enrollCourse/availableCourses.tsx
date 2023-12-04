@@ -25,7 +25,7 @@ const AvailableCourses = async () => {
       include: { professor: { include: { user: true }}}
     })
 
-    console.log(JSON.stringify(availableCourses, null, 2))
+    // console.log(JSON.stringify(availableCourses, null, 2))
 
     return (
       <div className="bg-zinc-50 rounded shadow p-4 mt-4">

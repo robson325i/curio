@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-    @apply bg-zinc-100;
+    @apply bg-curio bg-no-repeat bg-center bg-contain w-screen h-screen;
 }

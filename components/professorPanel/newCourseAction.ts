@@ -7,7 +7,7 @@ interface courseObject {
     name: string,
     description: string,
     dateStart: Date,
-    dateEnd?: Date,
+    dateEnd: Date | null,
     location: string,
     open: boolean,
     professorId: string
@@ -19,8 +19,8 @@ export default async function NewCourseAction(course: courseObject) {
         data: {
             name: course.name,
             description: course.description,
-            dateStart: dateS,
-            dateEnd: dateE?.toISOString(),
+            dateStart: course.dateStart.toISOString(),
+            dateEnd: course.dateEnd?.toISOString(),
             open: course.open,
             location: course.location,
             professorId: course.professorId
