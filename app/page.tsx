@@ -25,10 +25,9 @@ const Home = async () => {
       // get user role from email
       if (session.user.email.includes("aluno")) {
         try {
-          user = await prisma.user.create({
+          await prisma.user.create({
             data: {
               student: {create: {}},
-              professor: null,
               email: session.user.email,
               name: session.user.name!,
               image: session.user.image!
@@ -40,7 +39,7 @@ const Home = async () => {
         }
       } else {
         try {
-          user = await prisma.user.create({
+          await prisma.user.create({
             data: {
               professor: {create: {}},
               email: session.user.email,
