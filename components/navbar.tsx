@@ -4,14 +4,14 @@ import UserDropdown from "./userdropdown"
 import { useState } from "react"
 import Link from "next/link"
 import { Session } from "next-auth"
-
+import faeterj from '@/public/Faeterj.png'
 
 const LogoName = () => {
   return (
     <Link href={"/"} className="flex items-center gap-4 my-2">
       <Image 
         className="w-10 h-10"
-        src={"/faeterj.png"} width={40} height={40} alt="Logo Faeterj"
+        src={faeterj} width={40} height={40} alt="Logo Faeterj"
       />
       <span className="font-semibold text-2xl">
         Curió

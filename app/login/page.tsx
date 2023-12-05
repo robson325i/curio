@@ -1,13 +1,14 @@
 "use client"
 import { signIn } from "next-auth/react"
 import Image from "next/image"
+import faeterj from '@/public/Faeterj.png'
 
 const Login = () => {
   return (
     <main className="flex items-center justify-center px-4 py-4 w-full sm:h-screen grow">
       <div className="bg-zinc-50 shadow-md rounded p-10 mx-auto">
         <div className="flex gap-4 items-center">
-          <Image src="/faeterj.png" alt="Logo FAETERJ" width={72} height={72} className="w-auto h-auto" priority />
+          <Image src={faeterj} alt="Logo FAETERJ" width={72} height={72} className="w-auto h-auto" priority />
           <h1 className="font-semibold text-4xl text-zinc-700">
             Curió
           </h1>
